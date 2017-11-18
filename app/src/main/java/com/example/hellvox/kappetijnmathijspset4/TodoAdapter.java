@@ -4,33 +4,33 @@ import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CursorAdapter;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
-/**
- * Created by HellVox on 18-11-2017.
- */
+public class TodoAdapter extends CursorAdapter {
 
-public class TodoAdapter extends ResourceCursorAdapter {
+    private LayoutInflater cursorInflater;
 
-    private Context mContext;
-    int mResource;
 
-    public TodoAdapter(Context context, int resource, Cursor cursor) {
-        super(context, resource, cursor);
-        mContext = context;
-        mResource = resource;
+    public TodoAdapter(Context context, Cursor cursor, int flags) {
+        super(context, cursor, flags);
+        cursorInflater = (LayoutInflater) context.getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        int temp = Cursor.getColumnIndex("title");
-        int checked = Cursor.getInt(temp);
+        TextView name = view.findViewById(R.id.textView5);
+        String title = cursor.getString( cursor.getColumnIndex( "todos.title"));
+        name.setText(title);
+        //CheckBox box = (CheckBox) view.findViewById(R.id.check);
+    }
 
-
-        TextView name = (TextView) view.findViewById(R.id.textView5);
-        CheckBox box = (CheckBox) view.findViewById(R.id.check);
-
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+        return cursorInflater.inflate(R.layout.row_todo, parent, false);
     }
 }
