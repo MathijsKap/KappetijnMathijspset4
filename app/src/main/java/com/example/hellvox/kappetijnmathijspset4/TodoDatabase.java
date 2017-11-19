@@ -24,7 +24,7 @@ public class TodoDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
           "create table todos" +
-                  "(id integer primary key, title text, complete integer)"
+                  "(id integer primary key autoincrement, title text, complete integer)"
         );
         insertToDo("nummer 1", 0);
         insertToDo("nummer 2", 0);
