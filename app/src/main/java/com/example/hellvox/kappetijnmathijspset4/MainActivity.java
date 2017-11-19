@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     TodoAdapter adapter;
     ListView todoList;
-    private Cursor mCursor;
+    Cursor mCursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +23,11 @@ public class MainActivity extends AppCompatActivity {
 
         Button button = (Button) findViewById(R.id.enterButton);
         CheckBox box = (CheckBox) findViewById(R.id.check);
+        todoList = (ListView) findViewById(R.id.todoList);
 
 
         TodoDatabase db = TodoDatabase.getInstance(getApplicationContext());
-        todoList = (ListView) findViewById(R.id.todoList);
+        //Cursor mCursor = db.selectAll();
         adapter = new TodoAdapter(this, R.layout.row_todo, mCursor, 0);
         todoList.setAdapter(adapter);
 

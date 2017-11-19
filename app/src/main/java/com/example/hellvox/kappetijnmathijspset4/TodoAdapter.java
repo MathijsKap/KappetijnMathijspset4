@@ -18,7 +18,9 @@ public class TodoAdapter extends ResourceCursorAdapter {
         TextView name = view.findViewById(R.id.textView5);
         CheckBox box = (CheckBox) view.findViewById(R.id.check);
 
-        String title = cursor.getString( cursor.getColumnIndex( "todos.title"));
+
+
+        String title = cursor.getString(cursor.getColumnIndex( "title"));
         name.setText(title);
 
     }

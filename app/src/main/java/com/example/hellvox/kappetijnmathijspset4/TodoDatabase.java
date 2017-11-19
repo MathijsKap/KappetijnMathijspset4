@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TodoDatabase extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "todo.db";
+    public static final String DATABASE_NAME = "todos";
     private static TodoDatabase instance;
 
 
@@ -24,7 +24,7 @@ public class TodoDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
           "create table todos" +
-                  "(id integer primary key autoincrement, title text, complete integer)"
+                  "( _id integer primary key autoincrement, title text, complete integer )"
         );
         insertToDo("nummer 1", 0);
         insertToDo("nummer 2", 0);
@@ -38,13 +38,12 @@ public class TodoDatabase extends SQLiteOpenHelper {
 
     }
 
-    private boolean insertToDo (String title, int complete) {
+    private void insertToDo (String title, int complete) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", title);
         contentValues.put("complete", complete);
         db.insert("todos", null, contentValues);
-        return true;
     }
 
     public Cursor selectAll() {
