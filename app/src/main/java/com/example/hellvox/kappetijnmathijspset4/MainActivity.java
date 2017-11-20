@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         TodoDatabase db = TodoDatabase.getInstance(getApplicationContext());
-        //Cursor mCursor = db.selectAll();
-        adapter = new TodoAdapter(this, R.layout.row_todo, mCursor, 0);
+        mCursor = db.selectAll();
+        adapter = new TodoAdapter(getApplicationContext(), mCursor, 0);
         todoList.setAdapter(adapter);
 
 

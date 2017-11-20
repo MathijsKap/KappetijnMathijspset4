@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 public class TodoAdapter extends ResourceCursorAdapter {
 
-    public TodoAdapter(Context context,int resource, Cursor cursor, int flags) {
-        super(context, resource, cursor, flags);
+    public TodoAdapter(Context context, Cursor cursor, int flags) {
+        super(context, R.layout.row_todo, cursor, flags);
     }
 
     @Override

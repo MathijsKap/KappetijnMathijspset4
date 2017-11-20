@@ -12,23 +12,33 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TodoDatabase extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "todos";
     private static TodoDatabase instance;
 
 
     private TodoDatabase(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, "todo", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
-          "create table todos" +
+          "create table if not exists todos" +
                   "( _id integer primary key autoincrement, title text, complete integer )"
         );
-        insertToDo("nummer 1", 0);
-        insertToDo("nummer 2", 0);
-        insertToDo("nummer 3", 0);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("title", "nummer 1");
+        contentValues.put("complete", 0);
+        db.insert("todos", null, contentValues);
+
+        contentValues = new ContentValues();
+        contentValues.put("title", "nummer 2");
+        contentValues.put("complete", 0);
+        db.insert("todos", null, contentValues);
+
+        contentValues = new ContentValues();
+        contentValues.put("title", "nummer 3");
+        contentValues.put("complete", 0);
+        db.insert("todos", null, contentValues);
     }
 
     @Override
@@ -39,7 +49,7 @@ public class TodoDatabase extends SQLiteOpenHelper {
     }
 
     private void insertToDo (String title, int complete) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", title);
         contentValues.put("complete", complete);
@@ -47,7 +57,7 @@ public class TodoDatabase extends SQLiteOpenHelper {
     }
 
     public Cursor selectAll() {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         return db.rawQuery("select * from todos", null);
     }
 
