@@ -1,8 +1,8 @@
 package com.example.hellvox.kappetijnmathijspset4;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,15 +18,17 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    TodoAdapter adapter;
+    private static Context context;
+    static TodoAdapter adapter;
     ListView todoList;
     Cursor mCursor;
-    TodoDatabase db;
+    static TodoDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MainActivity.context = getApplicationContext();
 
         Button button = (Button) findViewById(R.id.enterButton);
         CheckBox box = (CheckBox) findViewById(R.id.check);
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         db.insertToDo(title, complete);
     }
 
-    private void updateData() {
+    private static void updateData() {
         adapter.swapCursor(db.selectAll());
     }
 
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class GoButtonClickListener implements AdapterView.OnItemClickListener {
+    private static class GoButtonClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             LinearLayout item = (LinearLayout) view;
@@ -87,21 +89,45 @@ public class MainActivity extends AppCompatActivity {
             if (!box.isChecked()) {
                 db.update(Long.parseLong(idHidden.getText().toString()),1);
                 box.setChecked(true);
-                Toast.makeText(getApplicationContext(), "Checked!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.getAppContext(), "Checked!", Toast.LENGTH_SHORT).show();
                 updateData();
             } else if (box.isChecked()) {
                 db.update(Long.parseLong(idHidden.getText().toString()),0);
                 box.setChecked(false);
-                Toast.makeText(getApplicationContext(), "Unchecked!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.getAppContext(), "Unchecked!", Toast.LENGTH_SHORT).show();
                 updateData();
             }
         }
     }
+
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
                         Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(
                 activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
+    public static class buttonlistener implements View.OnClickListener {
+        public void onClick(View v) {
+            LinearLayout item = (LinearLayout) v.getParent();
+            TextView idHidden = (TextView) item.getChildAt(0);
+            CheckBox box = (CheckBox) item.getChildAt(1);
+            if (box.isChecked()) {
+                db.update(Long.parseLong(idHidden.getText().toString()),1);
+                box.setChecked(true);
+                Toast.makeText(MainActivity.getAppContext(), "Checked!", Toast.LENGTH_SHORT).show();
+                updateData();
+            } else if (!box.isChecked()) {
+                db.update(Long.parseLong(idHidden.getText().toString()),0);
+                box.setChecked(false);
+                Toast.makeText(MainActivity.getAppContext(), "Unchecked!", Toast.LENGTH_SHORT).show();
+                updateData();
+            }
+        }
+    }
+
+    public static Context getAppContext() {
+        return MainActivity.context;
     }
 }

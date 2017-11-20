@@ -6,10 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by HellVox on 18-11-2017.
- */
-
 public class TodoDatabase extends SQLiteOpenHelper {
 
     private static TodoDatabase instance;
@@ -25,20 +21,6 @@ public class TodoDatabase extends SQLiteOpenHelper {
           "create table if not exists todos" +
                   "( _id integer primary key autoincrement, title text, complete integer )"
         );
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("title", "nummer 1");
-        contentValues.put("complete", 0);
-        db.insert("todos", null, contentValues);
-
-        contentValues = new ContentValues();
-        contentValues.put("title", "nummer 2");
-        contentValues.put("complete", 1);
-        db.insert("todos", null, contentValues);
-
-        contentValues = new ContentValues();
-        contentValues.put("title", "nummer 3");
-        contentValues.put("complete", 0);
-        db.insert("todos", null, contentValues);
     }
 
     @Override

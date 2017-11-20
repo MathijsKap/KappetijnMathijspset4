@@ -18,21 +18,23 @@ public class TodoAdapter extends ResourceCursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView name = view.findViewById(R.id.textView5);
         TextView idd = view.findViewById(R.id.id);
-        CheckBox box = (CheckBox) view.findViewById(R.id.check);
+        CheckBox box = view.findViewById(R.id.check);
 
-
+        box.setOnClickListener(new MainActivity.buttonlistener());
 
         String title = cursor.getString(cursor.getColumnIndex( "title"));
         String id  = cursor.getString(cursor.getColumnIndex( "_id"));
         int boxValue = cursor.getInt(cursor.getColumnIndex( "complete"));
+
         name.setTextColor(Color.BLACK);
         name.setTextSize(16);
         name.setText(title);
         idd.setText(id);
+
         if (boxValue == 1) {
             box.setChecked(true);
             name.setTextColor(Color.GRAY);
             name.setTextSize(14);
-        }
+        } else box.setChecked(false);
     }
 }
