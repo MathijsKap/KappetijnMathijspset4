@@ -1,0 +1,6 @@
+exclude:
+- /app/src/androidTest/java/com/example/hellvox/kappetijnmathijspset4/ExampleInstrumentedTest.java
+- /app/src/test/java/com/example/hellvox/kappetijnmathijspset4/ExampleUnitTest.java
+component_depth: 1
+languages:
+- java
