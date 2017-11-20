@@ -32,7 +32,7 @@ public class TodoDatabase extends SQLiteOpenHelper {
 
         contentValues = new ContentValues();
         contentValues.put("title", "nummer 2");
-        contentValues.put("complete", 0);
+        contentValues.put("complete", 1);
         db.insert("todos", null, contentValues);
 
         contentValues = new ContentValues();
@@ -48,7 +48,7 @@ public class TodoDatabase extends SQLiteOpenHelper {
 
     }
 
-    private void insertToDo (String title, int complete) {
+    public void insertToDo (String title, int complete) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", title);
@@ -56,9 +56,21 @@ public class TodoDatabase extends SQLiteOpenHelper {
         db.insert("todos", null, contentValues);
     }
 
+    public void update(long id, int complete) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("complete", complete);
+        db.update("todos",contentValues, "_id = " + id, null);
+
+    }
+    public void delete(long id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("todos","_id = " + id, null);
+    }
+
     public Cursor selectAll() {
         SQLiteDatabase db = getWritableDatabase();
-        return db.rawQuery("select * from todos", null);
+        return db.rawQuery("select * from todos order by complete", null);
     }
 
     public static TodoDatabase getInstance(Context context) {
