@@ -60,11 +60,13 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             EditText enterbox = (EditText) findViewById(R.id.enterText);
             String title = enterbox.getText().toString();
-            addItem(title, 0);
-            enterbox.setText("");
-            Toast.makeText(getApplicationContext(), "Added!", Toast.LENGTH_SHORT).show();
-            updateData();
-            hideSoftKeyboard(MainActivity.this);
+            if (!title.equals("")) {
+                addItem(title, 0);
+                enterbox.setText("");
+                Toast.makeText(getApplicationContext(), "Added!", Toast.LENGTH_SHORT).show();
+                updateData();
+                hideSoftKeyboard(MainActivity.this);
+            } else Toast.makeText(getApplicationContext(), "Nothing to add!", Toast.LENGTH_SHORT).show();
         }
     }
 
