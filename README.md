@@ -5,3 +5,5 @@ Simple app to make a ToDo list. You can add, check and delete items from the lis
 <img src="https://raw.githubusercontent.com/hellvox/KappetijnMathijspset4/master/doc/Screenshot_1511433934.png" width="50%">
 <img src="https://raw.githubusercontent.com/hellvox/KappetijnMathijspset4/master/doc/Screenshot_1511433942.png" width="50%">
 <img src="https://raw.githubusercontent.com/hellvox/KappetijnMathijspset4/master/doc/Screenshot_1511433947.png" width="50%">
+
+[![BCH compliance](https://bettercodehub.com/edge/badge/hellvox/KappetijnMathijspset4?branch=master)](https://bettercodehub.com/)
