@@ -112,17 +112,17 @@ public class MainActivity extends AppCompatActivity {
 
     public static class buttonlistener implements View.OnClickListener {
         public void onClick(View v) {
-            LinearLayout item = (LinearLayout) v.getParent();
-            TextView idHidden = (TextView) item.getChildAt(0);
-            CheckBox box = (CheckBox) item.getChildAt(1);
-            if (box.isChecked()) {
-                db.update(Long.parseLong(idHidden.getText().toString()),1);
-                box.setChecked(true);
+            LinearLayout items = (LinearLayout) v.getParent();
+            TextView Hidden = (TextView) items.getChildAt(0);
+            CheckBox boxed = (CheckBox) items.getChildAt(1);
+            if (boxed.isChecked()) {
+                db.update(Long.parseLong(Hidden.getText().toString()),1);
+                boxed.setChecked(true);
                 Toast.makeText(MainActivity.getAppContext(), "Checked!", Toast.LENGTH_SHORT).show();
                 updateData();
-            } else if (!box.isChecked()) {
-                db.update(Long.parseLong(idHidden.getText().toString()),0);
-                box.setChecked(false);
+            } else if (!boxed.isChecked()) {
+                db.update(Long.parseLong(Hidden.getText().toString()),0);
+                boxed.setChecked(false);
                 Toast.makeText(MainActivity.getAppContext(), "Unchecked!", Toast.LENGTH_SHORT).show();
                 updateData();
             }
